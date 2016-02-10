@@ -149,6 +149,7 @@ to reproduce
   ask tigers [
    let x xcor
    let y ycor
+   let h heading
    let vdist vision-distance
    if energy > 100 [
      set energy energy - 50
@@ -157,8 +158,8 @@ to reproduce
        set energy birth-energy
        set color black
        set size 2.5
-       setxy random-xcor random-ycor
-       facexy (x + 180) (y + 180)
+       setxy x y
+       set heading h + 180
        fd 1
      ]
    ]
@@ -177,11 +178,11 @@ to keep-population-constant
         setxy random-xcor random-ycor
       ]
   ] [
-    if cnt > population-size [
-      ask min-n-of (cnt - population-size) tigers [age] [
-        die
-    ]
-  ]
+   ; if cnt > population-size [
+    ;  ask min-n-of (cnt - population-size) tigers [age] [
+    ;    die
+    ;]
+  ;]
   ]
 end
 
