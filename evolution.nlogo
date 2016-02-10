@@ -32,7 +32,7 @@ to setup
       setxy random-xcor random-ycor]
     set vision-area 3
     set mutation-rate 1
-    set population-size 10
+    set population-size 20
     set initial-vision-distance 10
     set birth-energy 50
     set num-starved 0
@@ -156,7 +156,7 @@ to reproduce
        make-tiger vdist mutation-rate
        set energy birth-energy
        set color black
-       set size 5
+       set size 2.5
        setxy random-xcor random-ycor
        facexy (x + 180) (y + 180)
        fd 1
