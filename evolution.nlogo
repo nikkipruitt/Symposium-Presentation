@@ -22,7 +22,7 @@ tigers-own [
 
 to setup
     clear-all
-    ask patches [set pcolor green]
+    ask patches [set pcolor lime]
     set-default-shape tigers "Cat"
     set-default-shape waters "tile water"
     ;;create-waters 1
