@@ -1,3 +1,6 @@
+breed [waters water]
+breed [tigers tiger]
+
 globals [
   vision-area
   mutation-rate
@@ -8,7 +11,7 @@ globals [
   num-starved
   num-spawned
 ]
-turtles-own [
+tigers-own [
   vision-distance
   vision-angle
   vision-arclength
@@ -20,7 +23,13 @@ turtles-own [
 to setup
     clear-all
     ask patches [set pcolor green]
-    set-default-shape turtles "Cat"
+    set-default-shape tigers "Cat"
+    set-default-shape waters "tile water"
+    create-waters 1
+    ask waters [
+      set color blue
+      set size 10
+      setxy random-xcor random-ycor]
     set vision-area 3
     set mutation-rate 1
     set population-size 40
@@ -29,13 +38,13 @@ to setup
     set num-starved 0
     set num-spawned 0
     set display-vision true
-    create-turtles population-size [
+    create-tigers population-size [
      make-turtle initial-vision-distance 0
      set vision-distance 1
      set vision-angle calc-vision-angle
      setxy random-xcor random-ycor
     ]
-    resize-world -24 24 -24 24
+    resize-world -20 20 -20 20
     reset-ticks
 end
 
@@ -57,7 +66,7 @@ end
 
 to go
   clear-drawing
-  ask turtles [
+  ask tigers [
    behave
    eat
    ;;reproduce
@@ -76,7 +85,7 @@ to behave
 end
 
 to-report find-prey
-  report min-one-of other turtles in-cone vision-distance vision-angle [distance myself]
+  report min-one-of other tigers in-cone vision-distance vision-angle [distance myself]
 end
 
 to wander
@@ -138,19 +147,19 @@ to grow
 end
 
 to keep-population-constant
-  let cnt count turtles
+  let cnt count tigers
   ifelse cnt < population-size [
     let best-distance 0
-    ask max-one-of turtles [age] [
+    ask max-one-of tigers [age] [
       set best-distance vision-distance
     ]
-      create-turtles population-size - cnt [
+      create-tigers population-size - cnt [
         make-turtle best-distance mutation-rate
         setxy random-xcor random-ycor
       ]
   ] [
     if cnt > population-size [
-      ask min-n-of (cnt - population-size) turtles [age] [
+      ask min-n-of (cnt - population-size) tigers [age] [
         die
     ]
   ]
@@ -158,7 +167,7 @@ to keep-population-constant
 end
 
 to update-energy-labels
-  ask turtles [
+  ask tigers [
     set label-color white
     set label word round energy " "
   ]
@@ -170,8 +179,8 @@ to-report calc-vision-angle
 end
 
 to-report monitor-average-vision-distance
-  ifelse count turtles > 0 [
-   report mean [vision-distance] of turtles
+  ifelse count tigers > 0 [
+   report mean [vision-distance] of tigers
   ] [
    report 0
   ]
@@ -217,10 +226,10 @@ end
 GRAPHICS-WINDOW
 210
 10
-857
-678
-24
-24
+753
+574
+20
+20
 13.0
 1
 10
@@ -231,10 +240,10 @@ GRAPHICS-WINDOW
 1
 1
 1
--24
-24
--24
-24
+-20
+20
+-20
+20
 1
 1
 1
@@ -591,6 +600,17 @@ Circle -16777216 true false 30 30 240
 Circle -7500403 true true 60 60 180
 Circle -16777216 true false 90 90 120
 Circle -7500403 true true 120 120 60
+
+tile water
+false
+0
+Rectangle -7500403 true true -1 0 299 300
+Polygon -1 true false 105 259 180 290 212 299 168 271 103 255 32 221 1 216 35 234
+Polygon -1 true false 300 161 248 127 195 107 245 141 300 167
+Polygon -1 true false 0 157 45 181 79 194 45 166 0 151
+Polygon -1 true false 179 42 105 12 60 0 120 30 180 45 254 77 299 93 254 63
+Polygon -1 true false 99 91 50 71 0 57 51 81 165 135
+Polygon -1 true false 194 224 258 254 295 261 211 221 144 199
 
 tree
 false
