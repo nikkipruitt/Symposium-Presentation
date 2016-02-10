@@ -24,15 +24,15 @@ to setup
     clear-all
     ask patches [set pcolor green]
     set-default-shape tigers "Cat"
-    ;;set-default-shape waters "tile water"
-   ;; create-waters 1
-   ;; ask waters [
-   ;;   set color blue
-   ;;   set size 10
-   ;;   setxy random-xcor random-ycor]
+    set-default-shape waters "tile water"
+    ;;create-waters 1
+    ask waters [
+      set color blue
+      set size 10
+      setxy random-xcor random-ycor]
     set vision-area 3
     set mutation-rate 1
-    set population-size 40
+    set population-size 10
     set initial-vision-distance 10
     set birth-energy 50
     set num-starved 0
@@ -147,16 +147,22 @@ end
 
 to reproduce
   ask tigers [
-   ;;let bx
+   let x xcor
+   let y ycor
+   let vdist vision-distance
+   let vstdev 0
    if energy > 100 [
+     set energy energy - 50
      hatch 1 [
-       set energy 50
+       make-tiger vdist vstdev
+       set energy birth-energy
        set color black
        set size 5
-       ;;set
+       setxy random-xcor random-ycor
+       facexy (x + 180) (y + 180)
+       fd 1
      ]
    ]
-   set energy energy - 50
   ]
 end
 
