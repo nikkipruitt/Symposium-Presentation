@@ -150,11 +150,10 @@ to reproduce
    let x xcor
    let y ycor
    let vdist vision-distance
-   let vstdev 0
    if energy > 100 [
      set energy energy - 50
      hatch 1 [
-       make-tiger vdist vstdev
+       make-tiger vdist mutation-rate
        set energy birth-energy
        set color black
        set size 5
@@ -303,6 +302,24 @@ NIL
 NIL
 NIL
 1
+
+PLOT
+795
+30
+1178
+205
+plot 1
+NIL
+NIL
+0.0
+10.0
+0.0
+10.0
+true
+false
+"" ""
+PENS
+"default" 1.0 0 -16777216 true "" "plot count turtles"
 
 @#$#@#$#@
 ## WHAT IS IT?
