@@ -24,12 +24,12 @@ to setup
     clear-all
     ask patches [set pcolor green]
     set-default-shape tigers "Cat"
-    set-default-shape waters "tile water"
-    create-waters 1
-    ask waters [
-      set color blue
-      set size 10
-      setxy random-xcor random-ycor]
+    ;;set-default-shape waters "tile water"
+   ;; create-waters 1
+   ;; ask waters [
+   ;;   set color blue
+   ;;   set size 10
+   ;;   setxy random-xcor random-ycor]
     set vision-area 3
     set mutation-rate 1
     set population-size 40
@@ -39,7 +39,7 @@ to setup
     set num-spawned 0
     set display-vision true
     create-tigers population-size [
-     make-turtle initial-vision-distance 0
+     make-tiger initial-vision-distance 0
      set vision-distance 1
      set vision-angle calc-vision-angle
      setxy random-xcor random-ycor
@@ -48,7 +48,7 @@ to setup
     reset-ticks
 end
 
-to make-turtle [vision-mean vision-stdev]
+to make-tiger [vision-mean vision-stdev]
   set color orange
   ifelse vision-stdev = 0 [
     set vision-distance 1 + random-float vision-mean
@@ -69,11 +69,10 @@ to go
   ask tigers [
    behave
    eat
-   ;;reproduce
+   reproduce
    starve
    grow
    if display-vision [draw-vision-cone]
-   ;;show-vision-cone
   ]
   keep-population-constant
   update-energy-labels
@@ -146,6 +145,21 @@ to grow
   set size max list 1 (round age / 100)
 end
 
+to reproduce
+  ask tigers [
+   ;;let bx
+   if energy > 100 [
+     hatch 1 [
+       set energy 50
+       set color black
+       set size 5
+       ;;set
+     ]
+   ]
+   set energy energy - 50
+  ]
+end
+
 to keep-population-constant
   let cnt count tigers
   ifelse cnt < population-size [
@@ -154,7 +168,7 @@ to keep-population-constant
       set best-distance vision-distance
     ]
       create-tigers population-size - cnt [
-        make-turtle best-distance mutation-rate
+        make-tiger best-distance mutation-rate
         setxy random-xcor random-ycor
       ]
   ] [
