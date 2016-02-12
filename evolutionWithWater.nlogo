@@ -1,3 +1,4 @@
+breed [waters water]
 breed [tigers tiger]
 
 globals [
@@ -23,6 +24,12 @@ to setup
     clear-all
     ask patches [set pcolor lime]
     set-default-shape tigers "Cat"
+    set-default-shape waters "tile water"
+    ;;create-waters 1
+    ask waters [
+      set color blue
+      set size 10
+      setxy random-xcor random-ycor]
     set vision-area 3
     set mutation-rate 1
     set population-size 30
@@ -81,6 +88,7 @@ to-report find-prey
 end
 
 to wander
+  ;;set color yellow
   set color orange
   let prey find-prey
   ifelse prey = nobody [
