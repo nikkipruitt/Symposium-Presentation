@@ -310,17 +310,28 @@ PLOT
 1178
 205
 plot 1
-NIL
-NIL
+time
+tigers
 0.0
-10.0
+50.0
 0.0
-10.0
+50.0
 true
-false
+true
 "" ""
 PENS
-"default" 1.0 0 -16777216 true "" "plot count turtles"
+"default" 1.0 0 -16777216 true "" "plot count tigers"
+
+MONITOR
+810
+248
+897
+293
+Tiger Count
+count tigers
+17
+1
+11
 
 @#$#@#$#@
 ## WHAT IS IT?
