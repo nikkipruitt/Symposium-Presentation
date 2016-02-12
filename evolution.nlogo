@@ -32,7 +32,7 @@ to setup
       setxy random-xcor random-ycor]
     set vision-area 3
     set mutation-rate 1
-    set population-size 20
+    set population-size 30
     set initial-vision-distance 10
     set birth-energy 50
     set num-starved 0
@@ -244,9 +244,9 @@ to show-vision-cone
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
-210
+15
 10
-753
+558
 574
 20
 20
@@ -271,9 +271,9 @@ ticks
 30.0
 
 BUTTON
-8
+690
 23
-74
+756
 56
 NIL
 setup\n
@@ -288,10 +288,10 @@ NIL
 1
 
 BUTTON
-97
-23
-160
-56
+692
+69
+755
+102
 NIL
 go
 T
@@ -305,28 +305,28 @@ NIL
 1
 
 PLOT
-795
-30
-1178
-205
-plot 1
+648
+184
+1031
+359
+Average Vision Distance
 time
 tigers
 0.0
-50.0
+15.0
 0.0
-50.0
+15.0
 true
 true
 "" ""
 PENS
-"default" 1.0 0 -16777216 true "" "plot count tigers"
+"default" 1.0 0 -16777216 true "" "plot mean [vision-distance] of tigers"
 
 MONITOR
-810
-248
-897
-293
+905
+22
+992
+67
 Tiger Count
 count tigers
 17
