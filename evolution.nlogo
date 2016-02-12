@@ -311,7 +311,7 @@ PLOT
 359
 Average Vision Distance
 time
-tigers
+distance
 0.0
 15.0
 0.0
