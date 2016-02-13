@@ -24,12 +24,13 @@ to setup
     clear-all
     ask patches [set pcolor lime]
     set-default-shape tigers "Cat"
-    set-default-shape waters "tile water"
-    ;;create-waters 1
-    ask waters [
-      set color blue
-      set size 10
-      setxy random-xcor random-ycor]
+    ;set-default-shape waters "tile water"
+    ;create-waters 1
+    make-water 0 0 4
+    ;ask waters [
+    ;  set color blue
+    ;  set size 10
+    ;s  setxy random-xcor random-ycor]
     set vision-area 3
     set mutation-rate 1
     set population-size 30
@@ -46,6 +47,14 @@ to setup
     ]
     resize-world -20 20 -20 20
     reset-ticks
+end
+
+to make-water [wx wy r]
+  ask patch wx wy [
+    ask patches in-radius r [
+      set pcolor blue
+    ]
+  ]
 end
 
 to make-tiger [vision-mean vision-stdev]
@@ -72,6 +81,7 @@ to go
    reproduce
    starve
    grow
+   drink
    if display-vision [draw-vision-cone]
   ]
   keep-population-constant
@@ -81,6 +91,13 @@ end
 
 to behave
   ifelse behavior = "wander" [wander][hunt]
+end
+
+to drink
+  if pcolor = blue [
+    set heading heading + 180
+    fd 1
+  ]
 end
 
 to-report find-prey
@@ -173,9 +190,15 @@ to keep-population-constant
     ask max-one-of tigers [age] [
       set best-distance vision-distance
     ]
-      create-tigers population-size - cnt [
+    create-tigers population-size - cnt [
         make-tiger best-distance mutation-rate
-        setxy random-xcor random-ycor
+        let px xcor
+        let py ycor
+        ask one-of patches with [pcolor = lime] [
+          set px pxcor
+          set py pycor
+        ]
+        setxy px py
       ]
   ] [
    ; if cnt > population-size [

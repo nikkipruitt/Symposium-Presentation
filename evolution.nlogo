@@ -309,10 +309,10 @@ distance
 0.0
 15.0
 true
-true
+false
 "" ""
 PENS
-"default" 1.0 0 -16777216 true "" "plot mean [vision-distance] of tigers"
+"distance" 1.0 0 -16777216 true "" "plot mean [vision-distance] of tigers"
 
 MONITOR
 905
@@ -324,6 +324,24 @@ count tigers
 17
 1
 11
+
+PLOT
+649
+364
+1032
+514
+Histogram
+NIL
+NIL
+0.0
+10.0
+0.0
+10.0
+true
+false
+"" ""
+PENS
+"default" 1.0 1 -16777216 true "" "histogram [vision-distance] of tigers"
 
 @#$#@#$#@
 ## WHAT IS IT?
