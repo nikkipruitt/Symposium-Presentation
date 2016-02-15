@@ -10,6 +10,7 @@ globals [
   birth-energy
   num-starved
   num-spawned
+  num-obstacles
 ]
 tigers-own [
   vision-distance
@@ -24,6 +25,7 @@ to setup
     clear-all
     ask patches [set pcolor lime]
     set-default-shape tigers "Cat"
+    set num-obstacles 10
     make-obstacles
     ;set-default-shape waters "tile water"
     ;create-waters 1
@@ -44,7 +46,12 @@ to setup
      make-tiger initial-vision-distance 0
      set vision-distance 1
      set vision-angle calc-vision-angle
-     setxy random-xcor random-ycor
+     ;let l place-tigers
+     ;let x item 0 l
+     ;let y item 1 l
+     let x random-xcor
+     let y random-ycor
+     setxy x y
     ]
     resize-world -20 20 -20 20
     reset-ticks
@@ -59,7 +66,7 @@ to make-water [wx wy r]
 end
 
 to make-obstacles
-  ask n-of 10 patches [
+  ask n-of num-obstacles patches [
     set pcolor gray
   ]
 end
@@ -81,13 +88,13 @@ to make-tiger [vision-mean vision-stdev]
 end
 
 to-report place-tigers
-  let px 0
-  let py 0
+  let px random-xcor
+  let py random-ycor
   ask one-of patches with [pcolor = gray] [
           set px pxcor
           set py pycor
   ]
-  ;report px py
+  report (list px py)
 end
 
 to go
