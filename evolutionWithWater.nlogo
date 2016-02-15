@@ -24,13 +24,14 @@ to setup
     clear-all
     ask patches [set pcolor lime]
     set-default-shape tigers "Cat"
+    make-obstacles
     ;set-default-shape waters "tile water"
     ;create-waters 1
-    make-water 0 0 4
+    ;make-water 0 0 4
     ;ask waters [
     ;  set color blue
     ;  set size 10
-    ;s  setxy random-xcor random-ycor]
+    ;  setxy random-xcor random-ycor]
     set vision-area 3
     set mutation-rate 1
     set population-size 30
@@ -57,6 +58,12 @@ to make-water [wx wy r]
   ]
 end
 
+to make-obstacles
+  ask n-of 10 patches [
+    set pcolor gray
+  ]
+end
+
 to make-tiger [vision-mean vision-stdev]
   set color orange
   ifelse vision-stdev = 0 [
@@ -71,6 +78,16 @@ to make-tiger [vision-mean vision-stdev]
   set energy birth-energy
   set age 0
   set behavior "wander"
+end
+
+to-report place-tigers
+  let px 0
+  let py 0
+  ask one-of patches with [pcolor = gray] [
+          set px pxcor
+          set py pycor
+  ]
+  ;report px py
 end
 
 to go
@@ -340,7 +357,7 @@ distance
 0.0
 15.0
 true
-true
+false
 "" ""
 PENS
 "default" 1.0 0 -16777216 true "" "plot mean [vision-distance] of tigers"
