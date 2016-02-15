@@ -330,7 +330,7 @@ PLOT
 364
 1032
 514
-Histogram
+Distribution of Vision Distance
 NIL
 NIL
 0.0
@@ -342,6 +342,17 @@ false
 "" ""
 PENS
 "default" 1.0 1 -16777216 true "" "histogram [vision-distance] of tigers"
+
+MONITOR
+903
+76
+1042
+121
+Avg. Vision Distance
+mean [vision-distance] of tigers
+17
+1
+11
 
 @#$#@#$#@
 ## WHAT IS IT?
