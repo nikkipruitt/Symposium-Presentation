@@ -46,11 +46,9 @@ to setup
      make-tiger initial-vision-distance 0
      set vision-distance 1
      set vision-angle calc-vision-angle
-     ;let l place-tigers
-     ;let x item 0 l
-     ;let y item 1 l
-     let x random-xcor
-     let y random-ycor
+     let l place-tigers
+     let x item 0 l
+     let y item 1 l
      setxy x y
     ]
     resize-world -20 20 -20 20
@@ -90,7 +88,7 @@ end
 to-report place-tigers
   let px random-xcor
   let py random-ycor
-  ask one-of patches with [pcolor = gray] [
+  ask one-of patches with [pcolor = lime] [
           set px pxcor
           set py pycor
   ]
