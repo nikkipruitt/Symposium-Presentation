@@ -373,6 +373,35 @@ count tigers
 1
 11
 
+MONITOR
+906
+81
+1045
+126
+Avg. Vision Distance
+mean [vision-distance] of tigers
+17
+1
+11
+
+PLOT
+648
+374
+1033
+524
+Distribution of Vision Distance
+NIL
+NIL
+0.0
+10.0
+0.0
+10.0
+true
+false
+"" ""
+PENS
+"default" 1.0 1 -16777216 true "" "histogram [vision-distance] of tigers"
+
 @#$#@#$#@
 ## WHAT IS IT?
 
