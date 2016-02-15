@@ -1,3 +1,10 @@
+;;hunger is done
+;;obstacles are done
+;;thirst is done if we decide to include it
+;;power point needs to be done
+;;practice presentation needs to be done (trying out projector)
+;;two projects to show (with obstacles and without?)
+
 breed [waters water]
 breed [tigers tiger]
 
@@ -52,6 +59,7 @@ to setup
      setxy x y
     ]
     resize-world -20 20 -20 20
+    set-patch-size 13
     reset-ticks
 end
 
@@ -137,6 +145,12 @@ to wander
   ] [
   set behavior "hunt"
   ]
+  ;;if run into obstacles
+  if pcolor = gray [
+    ;;then turn around
+    set heading heading + 180
+    fd 1
+  ]
 end
 
 to hunt
@@ -159,6 +173,13 @@ to hunt
     face prey
     fd 1
     set energy energy - 1
+  ]
+  ;;if run into obstacles
+  if pcolor = gray [
+      ;;then turn around
+    set heading heading + 180
+    fd 1
+    ask my-out-links [die]
   ]
 end
 
@@ -214,12 +235,9 @@ to keep-population-constant
     ]
     create-tigers population-size - cnt [
         make-tiger best-distance mutation-rate
-        let px xcor
-        let py ycor
-        ask one-of patches with [pcolor = lime] [
-          set px pxcor
-          set py pycor
-        ]
+        let l place-tigers
+        let px item 0 l
+        let py item 1 l
         setxy px py
       ]
   ] [
