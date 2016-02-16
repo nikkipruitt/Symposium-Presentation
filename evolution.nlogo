@@ -2,7 +2,6 @@ breed [tigers tiger]
 
 globals [
   vision-area
-  mutation-rate
   display-vision
   population-size
   initial-vision-distance
@@ -24,7 +23,6 @@ to setup
     ask patches [set pcolor lime]
     set-default-shape tigers "Cat"
     set vision-area 3
-    set mutation-rate 1
     set population-size 30
     set initial-vision-distance 10
     set birth-energy 50
@@ -341,7 +339,7 @@ true
 false
 "" ""
 PENS
-"default" 1.0 1 -16777216 true "" "histogram [vision-distance] of tigers"
+"default" 0.5 1 -16777216 true "" "histogram [vision-distance] of tigers"
 
 MONITOR
 903
@@ -353,6 +351,21 @@ mean [vision-distance] of tigers
 17
 1
 11
+
+SLIDER
+662
+119
+834
+152
+mutation-rate
+mutation-rate
+0
+2
+0.5
+0.1
+1
+NIL
+HORIZONTAL
 
 @#$#@#$#@
 ## WHAT IS IT?

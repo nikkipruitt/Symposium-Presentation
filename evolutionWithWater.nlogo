@@ -117,11 +117,13 @@ to go
   ]
   keep-population-constant
   update-energy-labels
+  click-to-add-obstacle
   tick
 end
 
 to behave
   ifelse behavior = "wander" [wander][hunt]
+  hit-obstacle
 end
 
 to drink
@@ -142,10 +144,10 @@ end
 to-report is-obstacle-obstructing [p]
   ifelse any? patches in-cone vision-distance vision-angle with [pcolor = gray] [
     ifelse behavior = "hunt" [
-  report is-hunting-possible p
+      ifelse p = nobody [report false][report is-hunting-possible p]
     ][
-  report true
-  ]
+      report true
+    ]
   ][report false]
 end
 
@@ -154,9 +156,8 @@ to-report is-hunting-possible [p]
      let cx [pxcor] of closest-patch
      let cy [pycor] of closest-patch
      let obstacle-distance sqrt((xcor - cx) ^ 2 + (ycor - cy) ^ 2)
-     let prey p
-     let px [xcor] of prey
-     let py [ycor] of prey
+     let px [xcor] of p
+     let py [ycor] of p
      let prey-distance sqrt((xcor - px) ^ 2 + (ycor - py) ^ 2)
      ifelse prey-distance < obstacle-distance [
         report false
@@ -167,6 +168,7 @@ end
 
 to hit-obstacle
   if pcolor = gray [
+    lose-prey
     set heading heading + 180
     fd 1
   ]
@@ -181,9 +183,8 @@ to wander
     fd 0.5
     set energy energy - 0.5
   ] [
-  set behavior "hunt"
+    set behavior "hunt"
   ]
-  hit-obstacle
 end
 
 to hunt
@@ -195,8 +196,7 @@ to hunt
       set prey nobody
     ]
     ifelse prey = nobody [
-      ask my-out-links [die]
-      set behavior "wander"
+      lose-prey
     ] [
       face prey
       fd 0.5
@@ -205,20 +205,24 @@ to hunt
   ][
     create-link-to prey [
       set color red
-  ]
+    ]
     face prey
     fd 0.5  ;; garrett changed this from 1
     set energy energy - 1
   ]
-  hit-obstacle
+end
+
+to lose-prey
+  ask my-out-links [die]
+  set behavior "wander"
 end
 
 to eat
   let evalue 0
   ask out-link-neighbors with [distance myself <= 1] [
    set evalue 30
+   lose-prey
    die
-   ask my-out-links [die]
   ]
   set energy energy + evalue
 end
@@ -334,6 +338,11 @@ to show-vision-cone
    fd c
    die
   ]
+end
+
+
+to click-to-add-obstacle
+  if mouse-down? [ ask patch mouse-xcor mouse-ycor [set pcolor gray] ]
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
