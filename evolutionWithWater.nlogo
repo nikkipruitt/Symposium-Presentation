@@ -4,6 +4,7 @@
 ;;power point needs to be done
 ;;practice presentation needs to be done (trying out projector)
 ;;two projects to show (with obstacles and without?)
+;;ask garrett if he will review our slides (email)
 
 breed [waters water]
 breed [tigers tiger]
@@ -36,14 +37,14 @@ to setup
     make-obstacles
     ;set-default-shape waters "tile water"
     ;create-waters 1
-    ;make-water 0 0 4
+    make-water 0 0 2
     ;ask waters [
     ;  set color blue
     ;  set size 10
     ;  setxy random-xcor random-ycor]
-    set vision-area 3
+    set vision-area 10
     set mutation-rate 1
-    set population-size 30
+    set population-size 2
     set initial-vision-distance 10
     set birth-energy 50
     set num-starved 0
@@ -51,7 +52,7 @@ to setup
     set display-vision true
     create-tigers population-size [
      make-tiger initial-vision-distance 0
-     set vision-distance 1
+     set vision-distance 10
      set vision-angle calc-vision-angle
      let l place-tigers
      let x item 0 l
@@ -66,7 +67,7 @@ end
 to make-water [wx wy r]
   ask patch wx wy [
     ask patches in-radius r [
-      set pcolor blue
+      set pcolor gray
     ]
   ]
 end
@@ -97,8 +98,8 @@ to-report place-tigers
   let px random-xcor
   let py random-ycor
   ask one-of patches with [pcolor = lime] [
-          set px pxcor
-          set py pycor
+    set px pxcor
+    set py pycor
   ]
   report (list px py)
 end
@@ -109,8 +110,8 @@ to go
    behave
    eat
    reproduce
-   starve
-   grow
+   ;starve
+   ;grow
    drink
    if display-vision [draw-vision-cone]
   ]
@@ -131,7 +132,44 @@ to drink
 end
 
 to-report find-prey
-  report min-one-of other tigers in-cone vision-distance vision-angle [distance myself]
+  let prey min-one-of other tigers in-cone vision-distance vision-angle [distance myself]
+  if is-obstacle-obstructing [
+    set prey nobody
+  ]
+  report prey
+end
+
+to-report is-obstacle-obstructing
+  ifelse any? patches in-cone vision-distance vision-angle with [pcolor = gray] [
+    ifelse behavior = "hunt" [
+  report is-hunting-possible
+    ][
+  report true
+  ]
+  ][report false]
+end
+
+to-report is-hunting-possible
+     let closest-patch min-one-of patches in-cone vision-distance vision-angle with [pcolor = gray] [distance myself]
+     let cx [pxcor] of closest-patch
+     let cy [pycor] of closest-patch
+     let obstacle-distance sqrt((xcor - cx) ^ 2 + (ycor - cy) ^ 2)
+     let prey find-prey
+     let px [xcor] of prey
+     let py [ycor] of prey
+     let prey-distance sqrt((xcor - px) ^ 2 + (ycor - py) ^ 2)
+     ifelse prey-distance < obstacle-distance [
+        report false
+      ] [
+        report true
+      ]
+end
+
+to hit-obstacle
+  if pcolor = gray [
+    set heading heading + 180
+    fd 1
+  ]
 end
 
 to wander
@@ -139,25 +177,22 @@ to wander
   set color orange
   let prey find-prey
   ifelse prey = nobody [
-    rt 30 - random 69
+    rt 10 - random 20
     fd 0.5
     set energy energy - 0.5
   ] [
   set behavior "hunt"
   ]
-  ;;if run into obstacles
-  if pcolor = gray [
-    ;;then turn around
-    set heading heading + 180
-    fd 1
-  ]
+  hit-obstacle
 end
 
 to hunt
   set color red
   let prey find-prey
   ifelse prey = nobody [
-    set prey one-of out-link-neighbors
+    if not is-obstacle-obstructing [
+      set prey one-of out-link-neighbors
+    ]
     ifelse prey = nobody [
       ask my-out-links [die]
       set behavior "wander"
@@ -171,16 +206,11 @@ to hunt
       set color red
   ]
     face prey
-    fd 1
+    fd 0.5  ;; garrett changed this from 1
     set energy energy - 1
   ]
   ;;if run into obstacles
-  if pcolor = gray [
-      ;;then turn around
-    set heading heading + 180
-    fd 1
-    ask my-out-links [die]
-  ]
+  hit-obstacle
 end
 
 to eat
@@ -424,6 +454,13 @@ false
 "" ""
 PENS
 "default" 1.0 1 -16777216 true "" "histogram [vision-distance] of tigers"
+
+OUTPUT
+1001
+130
+1241
+184
+13
 
 @#$#@#$#@
 ## WHAT IS IT?
