@@ -133,28 +133,28 @@ end
 
 to-report find-prey
   let prey min-one-of other tigers in-cone vision-distance vision-angle [distance myself]
-  if is-obstacle-obstructing [
+  if is-obstacle-obstructing prey [
     set prey nobody
   ]
   report prey
 end
 
-to-report is-obstacle-obstructing
+to-report is-obstacle-obstructing [p]
   ifelse any? patches in-cone vision-distance vision-angle with [pcolor = gray] [
     ifelse behavior = "hunt" [
-  report is-hunting-possible
+  report is-hunting-possible p
     ][
   report true
   ]
   ][report false]
 end
 
-to-report is-hunting-possible
+to-report is-hunting-possible [p]
      let closest-patch min-one-of patches in-cone vision-distance vision-angle with [pcolor = gray] [distance myself]
      let cx [pxcor] of closest-patch
      let cy [pycor] of closest-patch
      let obstacle-distance sqrt((xcor - cx) ^ 2 + (ycor - cy) ^ 2)
-     let prey find-prey
+     let prey p
      let px [xcor] of prey
      let py [ycor] of prey
      let prey-distance sqrt((xcor - px) ^ 2 + (ycor - py) ^ 2)
@@ -190,8 +190,9 @@ to hunt
   set color red
   let prey find-prey
   ifelse prey = nobody [
-    if not is-obstacle-obstructing [
-      set prey one-of out-link-neighbors
+    set prey one-of out-link-neighbors
+    if is-obstacle-obstructing prey[
+      set prey nobody
     ]
     ifelse prey = nobody [
       ask my-out-links [die]
@@ -209,7 +210,6 @@ to hunt
     fd 0.5  ;; garrett changed this from 1
     set energy energy - 1
   ]
-  ;;if run into obstacles
   hit-obstacle
 end
 
