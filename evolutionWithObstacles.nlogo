@@ -3,7 +3,6 @@ breed [tigers tiger]
 
 globals [
   vision-area
-  mutation-rate
   display-vision
   population-size
   initial-vision-distance
@@ -100,7 +99,6 @@ to go
    reproduce
    starve
    grow
-   drink
    if display-vision [draw-vision-cone]
   ]
   keep-population-constant
@@ -491,6 +489,21 @@ NIL
 NIL
 NIL
 1
+
+SLIDER
+690
+121
+862
+154
+mutation-rate
+mutation-rate
+0
+2
+1
+0.1
+1
+NIL
+HORIZONTAL
 
 @#$#@#$#@
 ## WHAT IS IT?
