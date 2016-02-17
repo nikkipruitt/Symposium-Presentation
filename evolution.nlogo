@@ -232,6 +232,16 @@ to show-vision-cone
    die
   ]
 end
+
+to record
+  movie-start "tigers-hunting.mov"
+  movie-grab-view
+  repeat 30 [movie-grab-view]
+end
+
+to stop-recording
+  movie-close
+end
 @#$#@#$#@
 GRAPHICS-WINDOW
 15
@@ -366,6 +376,40 @@ mutation-rate
 1
 NIL
 HORIZONTAL
+
+BUTTON
+778
+22
+851
+55
+record
+record
+NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
+
+BUTTON
+779
+70
+854
+103
+stop
+stop-recording
+NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
 
 @#$#@#$#@
 ## WHAT IS IT?
