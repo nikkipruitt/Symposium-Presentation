@@ -1,11 +1,3 @@
-;;hunger is done
-;;obstacles are done
-;;thirst is done if we decide to include it
-;;power point needs to be done
-;;practice presentation needs to be done (trying out projector)
-;;two projects to show (with obstacles and without?)
-;;ask garrett if he will review our slides (email)
-
 breed [waters water]
 breed [tigers tiger]
 
@@ -44,7 +36,7 @@ to setup
     ;  setxy random-xcor random-ycor]
     set vision-area 10
     set mutation-rate 1
-    set population-size 2
+    set population-size 30
     set initial-vision-distance 10
     set birth-energy 50
     set num-starved 0
@@ -463,13 +455,6 @@ false
 "" ""
 PENS
 "default" 1.0 1 -16777216 true "" "histogram [vision-distance] of tigers"
-
-OUTPUT
-1001
-130
-1241
-184
-13
 
 @#$#@#$#@
 ## WHAT IS IT?
