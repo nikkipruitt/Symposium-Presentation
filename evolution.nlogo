@@ -8,6 +8,7 @@ globals [
   birth-energy
   num-starved
   num-spawned
+  recording
 ]
 tigers-own [
   vision-distance
@@ -37,6 +38,7 @@ to setup
     ]
     resize-world -20 20 -20 20
     reset-ticks
+    set recording false
 end
 
 to make-tiger [vision-mean vision-stdev]
@@ -67,6 +69,9 @@ to go
   ]
   keep-population-constant
   update-energy-labels
+  if recording [
+    movie-grab-view
+  ]
   tick
 end
 
@@ -235,12 +240,12 @@ end
 
 to record
   movie-start "tigers-hunting.mov"
-  movie-grab-view
-  repeat 30 [movie-grab-view]
+  set recording true
 end
 
 to stop-recording
   movie-close
+  set recording false
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
