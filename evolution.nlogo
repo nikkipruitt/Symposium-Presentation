@@ -87,7 +87,7 @@ to wander
   set color orange
   let prey find-prey
   ifelse prey = nobody [
-    rt 30 - random 69
+    rt 10 - random 20
     fd 0.5
     set energy energy - 0.5
   ] [
@@ -344,8 +344,8 @@ PLOT
 1032
 514
 Distribution of Vision Distance
-NIL
-NIL
+distance
+tigers
 0.0
 10.0
 0.0
@@ -376,7 +376,7 @@ mutation-rate
 mutation-rate
 0
 2
-0.5
+1
 0.1
 1
 NIL

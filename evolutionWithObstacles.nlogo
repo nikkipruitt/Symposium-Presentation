@@ -444,8 +444,8 @@ PLOT
 1033
 524
 Distribution of Vision Distance
-NIL
-NIL
+distance
+tigers
 0.0
 10.0
 0.0
