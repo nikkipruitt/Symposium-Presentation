@@ -37,14 +37,14 @@ to setup
     set vision-area 10
     set mutation-rate 1
     set population-size 30
-    set initial-vision-distance 10
+    set initial-vision-distance 1
     set birth-energy 50
     set num-starved 0
     set num-spawned 0
     set display-vision true
     create-tigers population-size [
      make-tiger initial-vision-distance 0
-     set vision-distance 10
+     set vision-distance 1
      set vision-angle calc-vision-angle
      let l place-tigers
      let x item 0 l
@@ -454,7 +454,7 @@ true
 false
 "" ""
 PENS
-"default" 1.0 1 -16777216 true "" "histogram [vision-distance] of tigers"
+"default" 0.5 1 -16777216 true "" "histogram [vision-distance] of tigers"
 
 @#$#@#$#@
 ## WHAT IS IT?
